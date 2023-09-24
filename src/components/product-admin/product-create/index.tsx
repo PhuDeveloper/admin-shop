@@ -1,9 +1,18 @@
 'use client';
 import { Button, Col, Form, Input, Row } from 'antd';
+import { CreateProductFormValue } from './type';
 
 export default function ProductCreateFormComponent() {
+  const handleCreateProduct = (value: CreateProductFormValue) => {};
+
   return (
-    <Form name="filterProduct" labelWrap labelAlign="left" labelCol={{ flex: '20%' }}>
+    <Form
+      name="filterProduct"
+      labelWrap
+      labelAlign="left"
+      labelCol={{ flex: '20%' }}
+      onFinish={handleCreateProduct}
+    >
       <Row gutter={16}>
         <Col xs={24}>
           <Form.Item name="productName" label={<p>Tên sản phẩm</p>}>
@@ -36,8 +45,8 @@ export default function ProductCreateFormComponent() {
         </Col>
 
         <Col xs={24}>
-          <Form.Item name="productPriceDiscount" label={<p>Phần trăm giảm</p>}>
-            <Input placeholder="Nhập giá gốc sản phẩm" />
+          <Form.Item name="productPriceDiscount" label={<p>Phần trăm giảm (%)</p>}>
+            <Input placeholder="Nhập phần trăm giảm" />
           </Form.Item>
         </Col>
 
