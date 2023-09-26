@@ -1,17 +1,12 @@
-import { searchProduct } from '@/services/product/search';
-import { GetListProductRequest, ProductEntity } from '@/types/product';
-import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouterBrandParams } from './useRouterBrandt';
-import { BrandEntity, GetListBrandRequest } from '@/types/brand';
 import { searchBrand } from '@/services/brand/search';
+import { BrandEntity, GetListBrandRequest } from '@/types/brand';
+import { useQuery } from '@tanstack/react-query';
+import { useCallback, useMemo, useState } from 'react';
 
 export default function useSearchBrandInput() {
-  const { limitParam, pageParam } = useRouterBrandParams();
-
   const initRequest: GetListBrandRequest = {
-    page: pageParam ? Number(pageParam) : 1,
-    limit: limitParam ? Number(limitParam) : 20,
+    page: 1,
+    limit: 20,
   };
 
   const [brandSearchParam, setBrandSearchParam] = useState(initRequest);

@@ -22,31 +22,22 @@ export default function ProductFilterComponent() {
 
   const handleSubmitFilter = (values: ProductFilterFormValue) => {
     const params: SearchProductParams = {};
-    console.log('values', values);
-    if (values.brand) {
-      params.brandId = values.brand.value;
-      params.brandName = values.brand.label;
-    }
-    if (values.category) {
-      params.categoryId = values.category.value;
-      params.categoryName = values.category.label;
-    }
 
-    if (values.productName) {
-      params.productName = values.productName;
-    }
+    params.brandId = values?.brand?.value ?? undefined;
+    params.brandName = values?.brand?.label ?? undefined;
 
-    if (values.productCode) {
-      params.productCode = values.productCode;
-    }
+    params.categoryId = values?.category?.value ?? undefined;
+    params.categoryName = values?.category?.label ?? undefined;
 
-    if (values.productStatus !== undefined) {
-      params.productStatus = values.productStatus.toString();
-    }
+    params.productName =
+      values?.productName && values?.productName.length > 0 ? values?.productName : undefined;
 
-    if (values.productStart) {
-      params.productStart = values.productStart.toString();
-    }
+    params.productCode =
+      values?.productCode && values?.productCode.length > 0 ? values?.productCode : undefined;
+
+    params.productStatus = values?.productStatus?.toString() ?? undefined;
+
+    params.productStart = values?.productStart?.toString() ?? undefined;
 
     router.push(appendQueryStringToUrl(window.location.href, params));
   };

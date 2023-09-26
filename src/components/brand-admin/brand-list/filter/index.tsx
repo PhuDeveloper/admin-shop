@@ -1,13 +1,34 @@
 'use client';
 
+import { BrandIsDeletedEnum } from '@/enums/brand';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Col, Form, Input, Row } from 'antd';
+import { Button, Card, Col, Form, Input, Row, Select } from 'antd';
 import { useRouter } from 'next/navigation';
+import { BrandFilterFormValue } from './type';
+import { appendQueryStringToUrl } from '@/helper/url';
+import { SearchBrandParams } from '@/types/brand';
 
 export default function BrandFilterComponent() {
+  const [form] = Form.useForm<BrandFilterFormValue>();
+
   const router = useRouter();
+
+  const handleSubmitFilter = (values: BrandFilterFormValue) => {
+    const params: SearchBrandParams = {};
+
+    params.brandName =
+      values?.brandName && values.brandName.length > 0 ? values.brandName : undefined;
+
+    params.brandCode =
+      values?.brandCode && values?.brandCode.length > 0 ? values.brandCode : undefined;
+
+    params.isDeleted = values.isDeleted !== undefined ? values.isDeleted : undefined;
+
+    router.push(appendQueryStringToUrl(window.location.href, params));
+  };
+
   return (
     <Card
       style={{
@@ -16,11 +37,18 @@ export default function BrandFilterComponent() {
       }}
       title={<h4> Bộ lọc</h4>}
     >
-      <Form name="filterProduct" labelWrap labelAlign="left" labelCol={{ flex: '30%' }}>
+      <Form
+        name="filterProduct"
+        labelWrap
+        labelAlign="left"
+        labelCol={{ flex: '30%' }}
+        form={form}
+        onFinish={handleSubmitFilter}
+      >
         <Row gutter={16}>
           <Col xs={24} lg={8}>
             <Form.Item
-              name="productName"
+              name="brandName"
               label={
                 <p>
                   <FilterOutlined style={{ marginRight: '10px' }} /> Tên thương hiệu
@@ -33,7 +61,7 @@ export default function BrandFilterComponent() {
 
           <Col xs={24} lg={8}>
             <Form.Item
-              name="productCode"
+              name="brandCode"
               label={
                 <p>
                   <FilterOutlined style={{ marginRight: '10px' }} /> Mã thương hiệu
@@ -46,14 +74,14 @@ export default function BrandFilterComponent() {
 
           <Col xs={24} lg={8}>
             <Form.Item
-              name="productStatus"
+              name="isDeleted"
               label={
                 <p>
                   <FilterOutlined style={{ marginRight: '10px' }} /> Trạng thái
                 </p>
               }
             >
-              <Input placeholder="Chọn trạng thái Thương hiệu" />
+              <Select placeholder="Chọn trạng thái" allowClear options={BrandIsDeletedEnum} />
             </Form.Item>
           </Col>
 
@@ -68,6 +96,7 @@ export default function BrandFilterComponent() {
                 icon={<FontAwesomeIcon icon={faXmark} />}
                 style={{ marginLeft: '10px' }}
                 onClick={() => {
+                  form.resetFields();
                   router.push('/admin/brand');
                 }}
               >

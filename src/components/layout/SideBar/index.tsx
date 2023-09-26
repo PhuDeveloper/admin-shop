@@ -2,20 +2,21 @@
 
 import { Menus } from '@/configs/menu';
 import { Layout, Menu } from 'antd';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const { Sider } = Layout;
 
 export default function AdminSideBarComponent() {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <Sider width={250}>
       <Menu
         theme="light"
         mode="inline"
-        defaultSelectedKeys={['/admin/product']}
-        defaultOpenKeys={['1']}
+        selectedKeys={[pathname]}
+        defaultOpenKeys={pathname.split('/')}
         items={Menus}
         style={{
           width: '100%',

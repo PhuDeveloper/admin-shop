@@ -67,6 +67,8 @@ export default function useSearchProduct() {
     productNameParam,
     productStatusParam,
     productStartParam,
+    limitParam,
+    pageParam,
   ]);
 
   const queryFn = useCallback(() => searchProduct(productSearchParam), [productSearchParam]);

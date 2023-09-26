@@ -191,6 +191,7 @@ export default function ProductUpdateFormComponent() {
           <Form.Item name="category" label={<p>Danh mục sản phẩm</p>}>
             <Select
               showSearch
+              labelInValue
               placeholder="Chọn danh mục"
               optionFilterProp="label"
               allowClear
@@ -208,6 +209,7 @@ export default function ProductUpdateFormComponent() {
           <Form.Item name="brand" label={<p>Thương hiệu</p>}>
             <Select
               showSearch
+              labelInValue
               placeholder="Chọn thương hiệu"
               optionFilterProp="label"
               allowClear

@@ -107,12 +107,7 @@ export default function BrandCreateFormComponent() {
             label={<p>Trạng thái</p>}
             rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
           >
-            <Select
-              placeholder="Chọn trạng thái"
-              optionFilterProp="label"
-              allowClear
-              options={BrandIsDeletedEnum}
-            />
+            <Select placeholder="Chọn trạng thái" allowClear options={BrandIsDeletedEnum} />
           </Form.Item>
         </Col>
 

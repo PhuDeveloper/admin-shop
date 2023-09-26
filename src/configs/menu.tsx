@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Menus: MenuType[] = [
   {
-    key: '1',
+    key: 'product',
     label: 'Quản lý sản phẩm',
     icon: <FontAwesomeIcon icon={faProductHunt} />,
     children: [
@@ -23,7 +23,7 @@ export const Menus: MenuType[] = [
     ],
   },
   {
-    key: '2',
+    key: 'brand',
     label: 'Quản lý thương hiệu',
     icon: <FontAwesomeIcon icon={faDatabase} />,
     children: [
@@ -40,7 +40,7 @@ export const Menus: MenuType[] = [
     ],
   },
   {
-    key: '3',
+    key: 'category',
     label: 'Quản lý danh mục',
     icon: <FontAwesomeIcon icon={faBook} />,
     children: [

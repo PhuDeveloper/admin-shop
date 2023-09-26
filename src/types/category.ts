@@ -57,5 +57,13 @@ export interface GetDetailCategoryRequest {
   categoryId: number;
 }
 
+export interface SearchCategoryParams {
+  categoryId?: number;
+  categoryName?: string;
+  isDeleted?: number;
+  page?: number;
+  limit?: number;
+}
+
 export interface CategoryListResponseData extends ApiResponse<CategoryListResponse> {}
 export interface CategoryEntityResponseData extends ApiResponse<CategoryEntity> {}

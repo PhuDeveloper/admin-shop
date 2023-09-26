@@ -59,5 +59,13 @@ export interface GetDetailBrandRequest {
   brandId: number;
 }
 
+export interface SearchBrandParams {
+  brandId?: number;
+  brandCode?: string;
+  brandName?: string;
+  isDeleted?: number;
+  page?: number;
+  limit?: number;
+}
 export interface BrandListResponseData extends ApiResponse<BrandListResponse> {}
 export interface BrandEntityResponseData extends ApiResponse<BrandEntity> {}
