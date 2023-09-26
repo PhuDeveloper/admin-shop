@@ -1,30 +1,34 @@
-import { getDetailProduct } from '@/services/product/get';
-import { GetDetailCategoryRequest } from '@/types/category';
+import { getDetailCategory } from '@/services/category/get';
+import { CategoryEntity, GetDetailCategoryRequest } from '@/types/category';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useRouterCategoryParams } from './useRouterCategoryt';
 
-export default function useGetDetailProduct() {
+export default function useGetDetailCategory() {
   const { id } = useRouterCategoryParams();
 
   const initReq: GetDetailCategoryRequest = {
     categoryId: Number(id as string),
   };
-  const [productGetDetailParam, setProductGetDetailParam] =
+  const [categoryGetDetailParam, setCategoryGetDetailParam] =
     useState<GetDetailCategoryRequest>(initReq);
 
-  // const queryFn = useCallback(
-  //   () => getDetailCategory(productGetDetailParam),
-  //   [productGetDetailParam],
-  // );
+  const queryFn = useCallback(
+    () => getDetailCategory(categoryGetDetailParam),
+    [categoryGetDetailParam],
+  );
 
-  // const requestQuery = useQuery(['categoryGetDetail', productGetDetailParam], queryFn, {
-  //   refetchOnWindowFocus: false,
-  //   staleTime: 500,
-  //   cacheTime: 0,
-  // });
+  const requestQuery = useQuery(['categoryGetDetail', categoryGetDetailParam], queryFn, {
+    refetchOnWindowFocus: false,
+    staleTime: 500,
+    cacheTime: 0,
+  });
 
-  // const { data } = requestQuery;
+  const { data } = requestQuery;
 
-  // return { data, requestQuery, setProductGetDetailParam };
+  const categoryDetail = useMemo<CategoryEntity | undefined>(() => {
+    return data?.payload;
+  }, [data?.payload]);
+
+  return { categoryDetail, requestQuery, setCategoryGetDetailParam };
 }

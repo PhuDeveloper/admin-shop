@@ -284,7 +284,7 @@ export default function ProductUpdateFormComponent() {
             label={<p>Số sao</p>}
             rules={[{ required: true, message: 'Vui lòng nhập số sao' }]}
           >
-            <InputNumber placeholder="Nhập số sao" style={{ width: '100%' }} min={0} max={5} />
+            <InputNumber placeholder="Nhập số sao" style={{ width: '100%' }} min={1} max={5} />
           </Form.Item>
         </Col>
 
@@ -303,7 +303,15 @@ export default function ProductUpdateFormComponent() {
         <Col xs={24} style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Tạo
+              Cập nhật
+            </Button>
+            <Button
+              style={{ marginLeft: '10px' }}
+              onClick={() => {
+                router.push('/admin/product');
+              }}
+            >
+              Hủy
             </Button>
           </Form.Item>
         </Col>

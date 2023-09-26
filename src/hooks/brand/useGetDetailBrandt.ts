@@ -1,7 +1,7 @@
 import { getDetailBrand } from '@/services/brand/get';
-import { GetDetailBrandRequest } from '@/types/brand';
+import { BrandEntity, GetDetailBrandRequest } from '@/types/brand';
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useRouterBrandParams } from './useRouterBrandt';
 
 export default function useGetDetailBrand() {
@@ -22,5 +22,9 @@ export default function useGetDetailBrand() {
 
   const { data } = requestQuery;
 
-  return { data, requestQuery, setBrandGetDetailParam };
+  const brandDetail = useMemo<BrandEntity | undefined>(() => {
+    return data?.payload;
+  }, [data?.payload]);
+
+  return { brandDetail, requestQuery, setBrandGetDetailParam };
 }

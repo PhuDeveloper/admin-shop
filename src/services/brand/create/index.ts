@@ -1,7 +1,7 @@
 import { getHttpClient } from '@/configs/httpClient';
 import { BrandEntityResponseData, CreateBrandRequest } from '@/types/brand';
 
-const API_URL = '/product/create';
+const API_URL = '/brand/create';
 
 export async function createBrand(req: CreateBrandRequest): Promise<BrandEntityResponseData> {
   const httpClient = await getHttpClient();

@@ -258,6 +258,14 @@ export default function ProductCreateFormComponent() {
             <Button type="primary" htmlType="submit">
               Tạo
             </Button>
+            <Button
+              style={{ marginLeft: '10px' }}
+              onClick={() => {
+                router.push('/admin/product');
+              }}
+            >
+              Hủy
+            </Button>
           </Form.Item>
         </Col>
       </Row>

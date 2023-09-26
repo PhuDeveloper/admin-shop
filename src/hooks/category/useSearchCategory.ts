@@ -1,37 +1,25 @@
-import { searchProduct } from '@/services/product/search';
-import { GetListProductRequest, ProductEntity } from '@/types/product';
+import { searchCategory } from '@/services/category/search';
+import { CategoryEntity, GetListCategoryRequest } from '@/types/category';
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouterCategoryParams } from './useRouterCategoryt';
 
-export default function useSearchProduct() {
-  const {
-    brandIdParam,
-    categoryIdParam,
-    isDeletedParam,
-    productCodeParam,
-    productNameParam,
-    productStatusParam,
-    limitParam,
-    pageParam,
-  } = useRouterCategoryParams();
+export default function useSearchCategory() {
+  const { categoryIdParam, isDeletedParam, categoryNameParam, limitParam, pageParam } =
+    useRouterCategoryParams();
 
-  const initRequest: GetListProductRequest = {
+  const initRequest: GetListCategoryRequest = {
     page: pageParam ? Number(pageParam) : 1,
     limit: limitParam ? Number(limitParam) : 20,
   };
 
-  const [productSearchParam, setProductSearchParam] = useState(initRequest);
+  const [categorySearchParam, setCategorySearchParam] = useState(initRequest);
 
   useEffect(() => {
-    const request: GetListProductRequest = {
+    const request: GetListCategoryRequest = {
       page: pageParam ? Number(pageParam) : 1,
       limit: limitParam ? Number(limitParam) : 20,
     };
-
-    if (brandIdParam) {
-      request.brandId = Number(brandIdParam);
-    }
 
     if (categoryIdParam) {
       request.categoryId = Number(categoryIdParam);
@@ -41,46 +29,30 @@ export default function useSearchProduct() {
       request.isDeleted = Number(isDeletedParam);
     }
 
-    if (productCodeParam) {
-      request.productCode = productCodeParam;
+    if (categoryNameParam) {
+      request.categoryName = categoryNameParam;
     }
 
-    if (productNameParam) {
-      request.productName = productNameParam;
-    }
+    setCategorySearchParam(request);
+  }, [categoryIdParam, isDeletedParam, categoryNameParam, limitParam, pageParam]);
 
-    if (productStatusParam) {
-      request.productStatus = Number(productStatusParam);
-    }
+  const queryFn = useCallback(() => searchCategory(categorySearchParam), [categorySearchParam]);
 
-    setProductSearchParam(request);
-  }, [
-    brandIdParam,
-    categoryIdParam,
-    isDeletedParam,
-    productCodeParam,
-    productNameParam,
-    productStatusParam,
-  ]);
-
-  const queryFn = useCallback(() => searchProduct(productSearchParam), [productSearchParam]);
-
-  const requestQuery = useQuery(['productSearch', productSearchParam], queryFn, {
+  const requestQuery = useQuery(['categorySearch', categorySearchParam], queryFn, {
     refetchOnWindowFocus: false,
     staleTime: 500,
   });
 
   const { data } = requestQuery;
 
-  const productList = useMemo<ProductEntity[]>(() => {
-    if (!data?.payload?.product_list) return [];
-
-    return data?.payload?.product_list;
-  }, [data?.payload?.product_list]);
+  const categoryList = useMemo<CategoryEntity[]>(() => {
+    if (!data?.payload) return [];
+    return data?.payload?.category_list;
+  }, [data?.payload?.category_list]);
 
   return {
-    productList,
+    categoryList,
     requestQuery,
-    setProductSearchParam,
+    setCategorySearchParam,
   };
 }

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, Col, Form, Input, Row } from 'antd';
 import { useRouter } from 'next/navigation';
 
-export default function BrandFilterComponent() {
+export default function CategoryFilterComponent() {
   const router = useRouter();
   return (
     <Card
@@ -16,35 +16,22 @@ export default function BrandFilterComponent() {
       }}
       title={<h4> Bộ lọc</h4>}
     >
-      <Form name="filterProduct" labelWrap labelAlign="left" labelCol={{ flex: '30%' }}>
+      <Form name="filterCategory" labelWrap labelAlign="left" labelCol={{ flex: '30%' }}>
         <Row gutter={16}>
-          <Col xs={24} lg={8}>
+          <Col xs={24} lg={12}>
             <Form.Item
-              name="productName"
+              name="categoryName"
               label={
                 <p>
-                  <FilterOutlined style={{ marginRight: '10px' }} /> Tên thương hiệu
+                  <FilterOutlined style={{ marginRight: '10px' }} /> Tên danh mục
                 </p>
               }
             >
-              <Input placeholder="Nhập tên thương hiệu" />
+              <Input placeholder="Nhập tên danh mục" />
             </Form.Item>
           </Col>
 
-          <Col xs={24} lg={8}>
-            <Form.Item
-              name="productCode"
-              label={
-                <p>
-                  <FilterOutlined style={{ marginRight: '10px' }} /> Mã thương hiệu
-                </p>
-              }
-            >
-              <Input placeholder="Nhập mã thương hiệu" />
-            </Form.Item>
-          </Col>
-
-          <Col xs={24} lg={8}>
+          <Col xs={24} lg={12}>
             <Form.Item
               name="productStatus"
               label={
@@ -53,7 +40,7 @@ export default function BrandFilterComponent() {
                 </p>
               }
             >
-              <Input placeholder="Chọn trạng thái Thương hiệu" />
+              <Input placeholder="Chọn trạng thái sanh mục" />
             </Form.Item>
           </Col>
 
@@ -68,7 +55,7 @@ export default function BrandFilterComponent() {
                 icon={<FontAwesomeIcon icon={faXmark} />}
                 style={{ marginLeft: '10px' }}
                 onClick={() => {
-                  router.push('/admin/brand');
+                  router.push('/admin/category');
                 }}
               >
                 Hủy

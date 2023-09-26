@@ -12,6 +12,7 @@ export default function useSearchProduct() {
     productCodeParam,
     productNameParam,
     productStatusParam,
+    productStartParam,
     limitParam,
     pageParam,
   } = useRouterProductParams();
@@ -53,6 +54,10 @@ export default function useSearchProduct() {
       request.productStatus = Number(productStatusParam);
     }
 
+    if (productStartParam) {
+      request.productStart = Number(productStartParam);
+    }
+
     setProductSearchParam(request);
   }, [
     brandIdParam,
@@ -61,6 +66,7 @@ export default function useSearchProduct() {
     productCodeParam,
     productNameParam,
     productStatusParam,
+    productStartParam,
   ]);
 
   const queryFn = useCallback(() => searchProduct(productSearchParam), [productSearchParam]);

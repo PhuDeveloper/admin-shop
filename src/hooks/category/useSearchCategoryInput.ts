@@ -14,11 +14,11 @@ export default function useSearchCategoryInput() {
     limit: limitParam ? Number(limitParam) : 20,
   };
 
-  const [productSearchParam, setProductSearchParam] = useState(initRequest);
+  const [categorySearchParam, setCategorySearchParam] = useState(initRequest);
 
-  const queryFn = useCallback(() => searchCategory(productSearchParam), [productSearchParam]);
+  const queryFn = useCallback(() => searchCategory(categorySearchParam), [categorySearchParam]);
 
-  const requestQuery = useQuery(['categorySearchInput', productSearchParam], queryFn, {
+  const requestQuery = useQuery(['categorySearchInput', categorySearchParam], queryFn, {
     refetchOnWindowFocus: false,
     staleTime: 500,
   });
@@ -34,6 +34,6 @@ export default function useSearchCategoryInput() {
   return {
     categoryList,
     requestQuery,
-    setProductSearchParam,
+    setCategorySearchParam,
   };
 }

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouterBrandParams } from './useRouterBrandt';
 
-export default function useSearchBrannd() {
+export default function useSearchBrand() {
   const { brandIdParam, isDeletedParam, brandCodeParam, brandNameParam, limitParam, pageParam } =
     useRouterBrandParams();
 

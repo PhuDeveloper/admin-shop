@@ -46,7 +46,6 @@ export interface CreateBrandRequest {
 
 export interface DataUpdateBrand {
   brandName?: string;
-  brandUpdated?: number;
   isDeleted?: number;
   brandDescription?: string;
 }

@@ -16,7 +16,7 @@ import { DataTypeProductList } from './type';
 const { Text } = Typography;
 
 export default function ProductTableComponent() {
-  const { productList } = useSearchProduct();
+  const { productList, requestQuery } = useSearchProduct();
   const { pageParam } = useRouterProductParams();
   const numberStartToCount = ((pageParam ? Number(pageParam) : 1) - 1) * 20;
 
@@ -121,6 +121,7 @@ export default function ProductTableComponent() {
         style={{ borderRadius: '10px' }}
         columns={columns}
         dataSource={data}
+        loading={requestQuery.status === 'loading'}
         scroll={{ x: '1000px', y: '600px' }}
         title={() => (
           <div style={{ display: 'flex', alignItems: 'center' }}>

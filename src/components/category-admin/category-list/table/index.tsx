@@ -12,11 +12,12 @@ import ButtonCreateComponent from '@/components/btn-create';
 import { useRouterBrandParams } from '@/hooks/brand/useRouterBrandt';
 import Link from 'next/link';
 import dayjs from 'dayjs';
+import useSearchCategory from '@/hooks/category/useSearchCategory';
 
 const { Text } = Typography;
 
-export default function BrandTableComponent() {
-  const { brandList, requestQuery } = useSearchBrand();
+export default function CategoryTableComponent() {
+  const { categoryList, requestQuery } = useSearchCategory();
   const { pageParam } = useRouterBrandParams();
   const numberStartToCount = ((pageParam ? Number(pageParam) : 1) - 1) * 20;
 
@@ -29,9 +30,9 @@ export default function BrandTableComponent() {
       align: 'center',
     },
     {
-      title: 'Thương hiệu',
-      dataIndex: 'brand',
-      key: 'brand',
+      title: 'Danh mục',
+      dataIndex: 'category',
+      key: 'category',
       align: 'center',
       width: '30%',
     },
@@ -58,28 +59,27 @@ export default function BrandTableComponent() {
     },
   ];
 
-  const data: DataTypeBrandList[] = brandList.map((item, index) => {
+  const data: DataTypeBrandList[] = categoryList.map((item, index) => {
     return {
       key: item.id.toString(),
       stt: <div>{numberStartToCount + index + 1}</div>,
-      brand: (
+      category: (
         <div>
-          <Text style={{ fontWeight: 550 }}>{item?.brandName} </Text>
-          <Text italic> (#{item?.brandCode})</Text>
+          <Text style={{ fontWeight: 550 }}>{item?.categoryName} </Text>
         </div>
       ),
       created: (
         <div>
           <Text>
-            {item?.brandCreated ? dayjs(item?.brandCreated * 1000).format('DD/MM/YYYY') : ''}
+            {item?.categoryCreated ? dayjs(item?.categoryCreated * 1000).format('DD/MM/YYYY') : ''}
           </Text>
         </div>
       ),
       isDeleted: <IsDeletedComponent isDeleted={item?.isDeleted ?? 0} />,
       action: (
         <Space size="large">
-          <Tooltip title="Chỉnh sửa thương hiệu">
-            <Link href={`/admin/brand/${item?.id}`}>
+          <Tooltip title="Chỉnh sửa danh mục">
+            <Link href={`/admin/category/${item?.id}`}>
               <Button type="link" icon={<FontAwesomeIcon icon={faPenToSquare} />} />
             </Link>
           </Tooltip>
@@ -98,8 +98,8 @@ export default function BrandTableComponent() {
       <Table
         style={{ borderRadius: '10px' }}
         columns={columns}
-        loading={requestQuery.status === 'loading'}
         dataSource={data}
+        loading={requestQuery.status === 'loading'}
         title={() => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h3>Danh sách thương hiệu</h3>

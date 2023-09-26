@@ -6,21 +6,15 @@ export const useRouterCategoryParams = () => {
 
   const { id } = params;
 
-  const productCodeParam = searchParams.get('productCode');
-  const productNameParam = searchParams.get('productName');
-  const productStatusParam = searchParams.get('productStatus');
+  const categoryNameParam = searchParams.get('categoryName');
   const isDeletedParam = searchParams.get('isDeleted');
-  const brandIdParam = searchParams.get('brandId');
   const categoryIdParam = searchParams.get('categoryId');
   const pageParam = searchParams.get('page');
   const limitParam = searchParams.get('limit');
 
   return {
-    productCodeParam,
-    productNameParam,
-    productStatusParam,
+    categoryNameParam,
     isDeletedParam,
-    brandIdParam,
     categoryIdParam,
     id,
     pageParam,

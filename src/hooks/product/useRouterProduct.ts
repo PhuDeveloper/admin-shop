@@ -9,6 +9,7 @@ export const useRouterProductParams = () => {
   const productCodeParam = searchParams.get('productCode');
   const productNameParam = searchParams.get('productName');
   const productStatusParam = searchParams.get('productStatus');
+  const productStartParam = searchParams.get('productStart');
   const isDeletedParam = searchParams.get('isDeleted');
   const brandIdParam = searchParams.get('brandId');
   const categoryIdParam = searchParams.get('categoryId');
@@ -18,6 +19,7 @@ export const useRouterProductParams = () => {
   return {
     productCodeParam,
     productNameParam,
+    productStartParam,
     productStatusParam,
     isDeletedParam,
     brandIdParam,

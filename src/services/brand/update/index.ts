@@ -2,7 +2,7 @@ import { getHttpClient } from '@/configs/httpClient';
 import { BrandEntityResponseData, UpdateBrandRequest } from '@/types/brand';
 import { ProductEntityResponseData, UpdateProductRequest } from '@/types/product';
 
-const API_URL = '/product/update';
+const API_URL = '/brand/update';
 
 export async function updateBrand(req: UpdateBrandRequest): Promise<BrandEntityResponseData> {
   const httpClient = await getHttpClient();

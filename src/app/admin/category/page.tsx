@@ -1,11 +1,11 @@
-import BrandFilterComponent from '@/components/brand-admin/brand-list/filter';
-import BrandTableComponent from '@/components/brand-admin/brand-list/table';
+import CategoryFilterComponent from '@/components/category-admin/category-list/filter';
+import CategoryTableComponent from '@/components/category-admin/category-list/table';
 
 export default function CategoryPage() {
   return (
     <div>
-      <BrandFilterComponent />
-      <BrandTableComponent />
+      <CategoryFilterComponent />
+      <CategoryTableComponent />
     </div>
   );
 }

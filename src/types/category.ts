@@ -39,11 +39,11 @@ export interface GetListCategoryRequest {
 export interface CreateCategoryRequest {
   categoryName: string;
   categoryDescription?: string;
+  isDeleted: number;
 }
 
 export interface DataUpdateCategory {
   categoryName?: string;
-  categoryUpdated?: number;
   isDeleted?: number;
   categoryDescription?: string;
 }

@@ -50,6 +50,7 @@ export interface GetListProductRequest {
   productId?: number;
   productName?: string;
   productStatus?: number;
+  productStart?: number;
   productCode?: string;
   brandId?: number;
   categoryId?: number;
@@ -96,6 +97,19 @@ export interface UpdateProductRequest {
 
 export interface GetDetailProductRequest {
   productId: number;
+}
+
+export interface SearchProductParams {
+  productCode?: string;
+  productName?: string;
+  productStatus?: string;
+  productStart?: string;
+  categoryId?: string;
+  categoryName?: string;
+  brandId?: string;
+  brandName?: string;
+  page?: string;
+  limit?: string;
 }
 
 export interface ProductListResponseData extends ApiResponse<ProductListResponse> {}
