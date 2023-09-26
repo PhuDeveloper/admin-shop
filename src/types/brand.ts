@@ -3,13 +3,13 @@ import { ProductEntity } from './product';
 
 export interface BrandEntity {
   id: number;
-  brandName: string;
-  brandCode: string;
-  brandCreated: number;
-  brandUpdated: number;
-  isDeleted: boolean;
+  brandName?: string;
+  brandCode?: string;
+  brandCreated?: number;
+  brandUpdated?: number;
+  isDeleted?: number;
   brandDescription?: string;
-  product: ProductEntity[];
+  product?: ProductEntity[];
 }
 
 export interface Brand {
@@ -33,7 +33,7 @@ export interface GetListBrandRequest {
   brandId?: number;
   brandCode?: string;
   brandName?: string;
-  isDeleted?: boolean;
+  isDeleted?: number;
   page?: number;
   limit?: number;
 }
@@ -47,7 +47,7 @@ export interface CreateBrandRequest {
 export interface DataUpdateBrand {
   brandName?: string;
   brandUpdated?: number;
-  isDeleted?: boolean;
+  isDeleted?: number;
   brandDescription?: string;
 }
 

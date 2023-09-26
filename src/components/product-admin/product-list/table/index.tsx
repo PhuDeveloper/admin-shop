@@ -1,24 +1,32 @@
 'use client';
 
+import ButtonCreateComponent from '@/components/btn-create';
 import StatusComponent from '@/components/status';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { formatNumber } from '@/helper/number';
+import { useRouterProductParams } from '@/hooks/product/useRouterProduct';
+import useSearchProduct from '@/hooks/product/useSearchProduct';
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faClose } from '@fortawesome/free-solid-svg-icons/faClose';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, Space, Table, Tooltip } from 'antd';
+import { Button, Card, Space, Table, Tooltip, Typography } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { DataTypeProductList } from './type';
 import Link from 'next/link';
-import ButtonCreateComponent from '@/components/btn-create';
+import { DataTypeProductList } from './type';
+
+const { Text } = Typography;
 
 export default function ProductTableComponent() {
+  const { productList } = useSearchProduct();
+  const { pageParam } = useRouterProductParams();
+  const numberStartToCount = ((pageParam ? Number(pageParam) : 1) - 1) * 20;
+
   const columns: ColumnsType<DataTypeProductList> = [
     {
       title: 'STT',
       dataIndex: 'stt',
       key: 'stt',
       align: 'center',
-      width: '20px',
+      width: '8%',
     },
     {
       title: 'Sản phẩm ',
@@ -27,7 +35,7 @@ export default function ProductTableComponent() {
       align: 'center',
     },
     {
-      title: 'loại sản phẩm',
+      title: 'Danh mục',
       dataIndex: 'productType',
       key: 'productType',
       align: 'center',
@@ -63,77 +71,44 @@ export default function ProductTableComponent() {
     },
   ];
 
-  const data: DataTypeProductList[] = [
-    {
-      key: '1',
-      stt: '1',
-      product: 32,
-      productType: 'New York No. 1 Lake Park',
-      brand: 'Test',
-      productPrice: '10',
-      productStatus: <StatusComponent status={0} />,
+  const data: DataTypeProductList[] = productList.map((item, index) => {
+    return {
+      key: item.id.toString(),
+      stt: <div>{numberStartToCount + index + 1}</div>,
+      product: (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div>
+            <img src={item?.imageUrl} width={50} height={60} style={{ borderRadius: '5px' }} />
+          </div>
+          <div style={{ textAlign: 'start', paddingLeft: '5px', marginLeft: '5px' }}>
+            <Text style={{ fontWeight: 550 }}>{item?.productName}</Text>
+            <br />
+            <Text italic>#{item?.productCode}</Text>
+          </div>
+        </div>
+      ),
+      productType: <div>{item?.category?.categoryName ?? ''}</div>,
+      brand: <div>{item?.brand?.brandName ?? ''}</div>,
+      productPrice: <div>{formatNumber(item?.productPriceOrg)} đ</div>,
+      productStatus: <StatusComponent status={item.productStatus} />,
       action: (
         <Space size="large">
           <Tooltip title="Chỉnh sửa sản phẩm">
-            <Button
-              type="link"
-              icon={<FontAwesomeIcon icon={faPenToSquare} />}
-              onClick={() => console.log('test')}
-            />
+            <Link href={`/admin/product/${item.id}`}>
+              <Button
+                type="link"
+                icon={<FontAwesomeIcon icon={faPenToSquare} />}
+                onClick={() => console.log('test')}
+              />
+            </Link>
           </Tooltip>
           <Tooltip title="Vô hiệu sản phẩm">
             <Button type="link" icon={<FontAwesomeIcon icon={faClose} />}></Button>
           </Tooltip>
         </Space>
       ),
-    },
-    {
-      key: '2',
-      stt: '2',
-      product: 32,
-      productType: 'New York No. 1 Lake Park',
-      brand: 'Test',
-      productPrice: '10',
-      productStatus: <StatusComponent status={1} />,
-      action: (
-        <Space size="large">
-          <Tooltip title="Chỉnh sửa sản phẩm">
-            <Button
-              type="link"
-              icon={<FontAwesomeIcon icon={faPenToSquare} />}
-              onClick={() => console.log('test')}
-            />
-          </Tooltip>
-          <Tooltip title="Vô hiệu sản phẩm">
-            <Button type="link" icon={<FontAwesomeIcon icon={faClose} />}></Button>
-          </Tooltip>
-        </Space>
-      ),
-    },
-    {
-      key: '3',
-      stt: '3',
-      product: 32,
-      productType: 'New York No. 1 Lake Park',
-      brand: 'Test',
-      productPrice: '10',
-      productStatus: <StatusComponent status={2} />,
-      action: (
-        <Space size="large">
-          <Tooltip title="Chỉnh sửa sản phẩm">
-            <Button
-              type="link"
-              icon={<FontAwesomeIcon icon={faPenToSquare} />}
-              onClick={() => console.log('test')}
-            />
-          </Tooltip>
-          <Tooltip title="Xóa sản phẩm">
-            <Button type="link" icon={<FontAwesomeIcon icon={faClose} />}></Button>
-          </Tooltip>
-        </Space>
-      ),
-    },
-  ];
+    };
+  });
 
   return (
     <Card
@@ -146,6 +121,7 @@ export default function ProductTableComponent() {
         style={{ borderRadius: '10px' }}
         columns={columns}
         dataSource={data}
+        scroll={{ x: '1000px', y: '600px' }}
         title={() => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <h3>Danh sách sản phẩm</h3>

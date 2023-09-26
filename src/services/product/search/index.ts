@@ -1,7 +1,7 @@
 import { getHttpClient } from '@/configs/httpClient';
 import { GetListProductRequest, ProductListResponseData } from '@/types/product';
 
-const API_URL = '/product/search';
+const API_URL = '/product/list';
 
 export async function searchProduct(req: GetListProductRequest): Promise<ProductListResponseData> {
   const httpClient = await getHttpClient();

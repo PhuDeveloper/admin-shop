@@ -1,50 +1,77 @@
 'use client';
+import TextEditorComponent from '@/components/text-editor';
 import { ProductStatusEnum } from '@/enums/product';
 import useSearchBrandInput from '@/hooks/brand/useSearchBrandInput';
 import useSearchCategoryInput from '@/hooks/category/useSearchCategoryInput';
+import useGetDetailProduct from '@/hooks/product/useGetDetailProduct';
+import { updateProduct } from '@/services/product/update';
 import { uploadFile } from '@/services/upload';
-import { CreateProductRequest } from '@/types/product';
+import { UpdateProductRequest } from '@/types/product';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Col, Form, Image, Input, InputNumber, Row, Select, Tooltip } from 'antd';
+import { Button, Col, Form, Image, Input, InputNumber, Result, Row, Select, Tooltip } from 'antd';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useRef, useState } from 'react';
-import { CreateProductFormValue } from './type';
-
-import TextEditorComponent from '@/components/text-editor';
-import { createProduct } from '@/services/product/create';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { CreateProductFormValue } from './type';
+import { useRouterProductParams } from '@/hooks/product/useRouterProduct';
 
-export default function ProductCreateFormComponent() {
+export default function ProductUpdateFormComponent() {
   const router = useRouter();
 
+  const { productDetail } = useGetDetailProduct();
   const { brandList } = useSearchBrandInput();
   const { categoryList } = useSearchCategoryInput();
+  const { id } = useRouterProductParams();
 
   const [listImageState, setListImageState] = useState<string[]>([]);
   const [valueEditor, setValueEditor] = useState<string>('');
 
   const [form] = Form.useForm<CreateProductFormValue>();
-  const handleCreateProduct = (value: CreateProductFormValue) => {
-    const request: CreateProductRequest = {
-      brandId: value.brand,
-      categoryId: value.category,
-      productName: value.productName,
-      productCode: value.productCode,
-      productStatus: value.productStatus,
-      isDeleted: 0,
-      productDescription: valueEditor,
-      productPriceDiscount: value.productPriceDiscount ?? 0,
-      productPriceOrg: value.productPriceOrg,
-      productStart: value.productStart,
-      imageUrl: listImageState[0],
-      imageUrlList: listImageState,
+
+  useEffect(() => {
+    setValueEditor(productDetail?.productDescription ?? '');
+    setListImageState(productDetail?.imageUrlList ?? []);
+    form.setFieldsValue({
+      brand: { value: productDetail?.brand?.id ?? 0, label: productDetail?.brand?.brandName ?? '' },
+      category: {
+        value: productDetail?.category?.id ?? 0,
+        label: productDetail?.category?.categoryName ?? '',
+      },
+      productCode: productDetail?.productCode ?? '',
+      productName: productDetail?.productName ?? '',
+      productPriceDiscount: productDetail?.productPriceDiscount ?? 0,
+      productPriceOrg: productDetail?.productPriceOrg ?? 0,
+      productStart: productDetail?.productStart ?? 0,
+      productStatus: productDetail?.productStatus,
+    });
+  }, [productDetail]);
+
+  const handleUpdateProduct = (value: CreateProductFormValue) => {
+    const request: UpdateProductRequest = {
+      productId: Number(id),
+      data: {
+        brand: {
+          id: value.brand.value,
+        },
+        category: {
+          id: value.category.value,
+        },
+        productName: value.productName,
+        productStatus: value.productStatus,
+        productDescription: valueEditor,
+        productPriceDiscount: value.productPriceDiscount ?? 0,
+        productPriceOrg: value.productPriceOrg,
+        productStart: value.productStart,
+        imageUrl: listImageState[0],
+        imageUrlList: listImageState,
+      },
     };
 
-    createProduct(request)
+    updateProduct(request)
       .then((res) => {
         if (res.statusCode !== 200) {
-          toast.error(`Tạo sản phẩm thất bại`, {
+          toast.error(`Cập nhật sản phẩm thất bại`, {
             position: 'top-center',
             autoClose: 2000,
             hideProgressBar: true,
@@ -57,7 +84,7 @@ export default function ProductCreateFormComponent() {
           return;
         }
 
-        toast.success(`Tạo sản phẩm thành công`, {
+        toast.success(`Cập nhật sản phẩm thành công`, {
           position: 'top-center',
           autoClose: 2000,
           hideProgressBar: true,
@@ -110,13 +137,33 @@ export default function ProductCreateFormComponent() {
     }
   };
 
+  if (!productDetail) {
+    return (
+      <Result
+        status="404"
+        title="404"
+        subTitle="Không tìm thấy dữ liệu bạn yêu cầu"
+        extra={
+          <Button
+            type="primary"
+            onClick={() => {
+              router.back();
+            }}
+          >
+            Quay về
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <Form
       name="filterProduct"
       labelWrap
       labelAlign="left"
       labelCol={{ flex: '20%' }}
-      onFinish={handleCreateProduct}
+      onFinish={handleUpdateProduct}
       form={form}
     >
       <Row gutter={16}>
@@ -136,7 +183,7 @@ export default function ProductCreateFormComponent() {
             label={<p>Mã sản phẩm</p>}
             rules={[{ required: true, message: 'Vui lòng nhập mã sản phẩm' }]}
           >
-            <Input placeholder="Nhập mã sản phẩm" />
+            <Input placeholder="Nhập mã sản phẩm" readOnly />
           </Form.Item>
         </Col>
 
@@ -183,8 +230,8 @@ export default function ProductCreateFormComponent() {
             <InputNumber
               placeholder="Nhập giá gốc sản phẩm"
               style={{ width: '100%' }}
-              formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              parser={(value) => value!.replace(/\$\s?|(,*)/g, '')}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              parser={(value) => value!.replace(/\s?|(,*)/g, '')}
             />
           </Form.Item>
         </Col>

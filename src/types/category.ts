@@ -3,12 +3,12 @@ import { ProductEntity } from './product';
 
 export interface CategoryEntity {
   id: number;
-  categoryName: string;
-  categoryCreated: number;
-  categoryUpdated: number;
-  isDeleted: boolean;
+  categoryName?: string;
+  categoryCreated?: number;
+  categoryUpdated?: number;
+  isDeleted?: number;
   categoryDescription?: string;
-  product: ProductEntity[];
+  product?: ProductEntity[];
 }
 
 export interface Category {
@@ -31,7 +31,7 @@ export interface CategoryListResponse {
 export interface GetListCategoryRequest {
   categoryId?: number;
   categoryName?: string;
-  isDeleted?: boolean;
+  isDeleted?: number;
   page?: number;
   limit?: number;
 }
@@ -44,13 +44,17 @@ export interface CreateCategoryRequest {
 export interface DataUpdateCategory {
   categoryName?: string;
   categoryUpdated?: number;
-  isDeleted?: boolean;
+  isDeleted?: number;
   categoryDescription?: string;
 }
 
 export interface UpdateCategoryRequest {
   categoryId: number;
   data: DataUpdateCategory;
+}
+
+export interface GetDetailCategoryRequest {
+  categoryId: number;
 }
 
 export interface CategoryListResponseData extends ApiResponse<CategoryListResponse> {}

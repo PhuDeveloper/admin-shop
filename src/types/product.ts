@@ -75,10 +75,11 @@ export interface CreateProductRequest {
 
 export interface DataUpdateProduct {
   productName?: string;
-  brandId?: number;
-  brandCategory?: number;
+  brand?: BrandEntity;
+  category?: CategoryEntity;
   productPriceOrg?: number;
   productStart?: number;
+  productStatus?: number;
   productCreated?: number;
   productUpdated?: number;
   productPriceDiscount?: number;

@@ -1,6 +1,6 @@
-import { GetDetailProductRequest } from '@/types/product';
+import { GetDetailProductRequest, ProductEntity } from '@/types/product';
 import { useRouterProductParams } from './useRouterProduct';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { getDetailProduct } from '@/services/product/get';
 import { useQuery } from '@tanstack/react-query';
 
@@ -26,5 +26,10 @@ export default function useGetDetailProduct() {
 
   const { data } = requestQuery;
 
-  return { data, requestQuery, setProductGetDetailParam };
+  const productDetail = useMemo<ProductEntity | undefined>(() => {
+    if (!data?.payload) return undefined;
+    return data?.payload;
+  }, [data?.payload]);
+
+  return { productDetail, requestQuery, setProductGetDetailParam };
 }
