@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 
 const { Footer } = Layout;
 
-export default function AdminFooterComponent() {
+export default function FooterComponent() {
   const footerStyle: React.CSSProperties = {
     textAlign: 'center',
     color: '#9299B8',

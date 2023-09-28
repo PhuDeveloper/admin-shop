@@ -1,6 +1,6 @@
-import AdminContentComponent from '@/components/layout/Content';
-import AdminFooterComponent from '@/components/layout/Footer';
-import HeaderAdminComponent from '@/components/layout/Header';
+import ContentComponent from '@/components/layout/Content';
+import FooterComponent from '@/components/layout/Footer';
+import HeaderAdminComponent from '@/components/layout/HeaderAdmin';
 import AdminSideBarComponent from '@/components/layout/SideBar';
 import { Layout } from 'antd';
 import type { Metadata } from 'next';
@@ -27,9 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Layout hasSider>
               <AdminSideBarComponent />
 
-              <AdminContentComponent>{children}</AdminContentComponent>
+              <ContentComponent>{children}</ContentComponent>
             </Layout>
-            <AdminFooterComponent />
+            <FooterComponent />
           </Layout>
         </ProviderComponent>
       </body>

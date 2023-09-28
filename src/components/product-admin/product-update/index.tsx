@@ -15,6 +15,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { CreateProductFormValue } from './type';
 import { useRouterProductParams } from '@/hooks/product/useRouterProduct';
+import { AxiosError } from 'axios';
 
 export default function ProductUpdateFormComponent() {
   const router = useRouter();
@@ -96,7 +97,8 @@ export default function ProductUpdateFormComponent() {
         });
         router.push('/admin/product');
       })
-      .catch((error) => {
+      .catch((error: AxiosError) => {
+        console.log('er', error.response?.statusText);
         toast.error(`Có lỗi xảy ra`, {
           position: 'top-center',
           autoClose: 2000,

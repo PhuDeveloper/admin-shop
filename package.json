@@ -27,6 +27,7 @@
     "dayjs": "^1.11.10",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "js-cookie": "^3.0.5",
     "next": "13.4.19",
     "numbro": "^2.4.0",
     "postcss": "8.4.29",
@@ -38,6 +39,7 @@
     "urijs": "^1.19.11"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.4",
     "@types/urijs": "^1.19.20"
   }
 }
