@@ -1,5 +1,5 @@
 'use client';
-import TextEditorComponent from '@/components/text-editor';
+
 import { ProductStatusEnum } from '@/enums/product';
 import useSearchBrandInput from '@/hooks/brand/useSearchBrandInput';
 import useSearchCategoryInput from '@/hooks/category/useSearchCategoryInput';
@@ -16,6 +16,14 @@ import { toast } from 'react-toastify';
 import { CreateProductFormValue } from './type';
 import { useRouterProductParams } from '@/hooks/product/useRouterProduct';
 import { AxiosError } from 'axios';
+import dynamic from 'next/dynamic';
+
+const TextEditorComponent = dynamic(
+  () => import('../../../components/text-editor').then((mod) => mod.TextEditorComponent),
+  {
+    ssr: false,
+  },
+);
 
 export default function ProductUpdateFormComponent() {
   const router = useRouter();

@@ -4,28 +4,30 @@ import { TextEditorComponentProps } from './type';
 import { useCallback, useRef } from 'react';
 import { uploadFile } from '@/services/upload';
 
-export default function TextEditorComponent(props: TextEditorComponentProps) {
+export const TextEditorComponent = (props: TextEditorComponentProps) => {
   const { valueEditor, setValueEditor } = props;
   const reactQuillRef = useRef<ReactQuill>(null);
 
   const imageHandler = useCallback(() => {
-    const input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.click();
-    input.onchange = async () => {
-      if (input !== null && input.files !== null) {
-        const file = input.files[0];
-        const url = await uploadFile({ file: file });
-        const quill = reactQuillRef.current;
+    if (process.browser) {
+      const input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*');
+      input.click();
+      input.onchange = async () => {
+        if (input !== null && input.files !== null) {
+          const file = input.files[0];
+          const url = await uploadFile({ file: file });
+          const quill = reactQuillRef.current;
 
-        if (quill) {
-          const range = quill.getEditorSelection();
+          if (quill) {
+            const range = quill.getEditorSelection();
 
-          range && quill.getEditor().insertEmbed(range.index, 'image', url.payload?.url);
+            range && quill.getEditor().insertEmbed(range.index, 'image', url.payload?.url);
+          }
         }
-      }
-    };
+      };
+    }
   }, []);
 
   return (
@@ -72,4 +74,4 @@ export default function TextEditorComponent(props: TextEditorComponentProps) {
       }}
     />
   );
-}
+};

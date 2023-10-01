@@ -1,17 +1,23 @@
 'use client';
 
-import { Button, Col, Form, Input, Row, Select } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { UpdateCategoryFormValue } from './type';
-
-import TextEditorComponent from '@/components/text-editor';
 import { BrandIsDeletedEnum } from '@/enums/brand';
 import useGetDetailCategory from '@/hooks/category/useGetDetaiCategory';
 import { useRouterCategoryParams } from '@/hooks/category/useRouterCategoryt';
 import { updateCategory } from '@/services/category/update';
 import { UpdateCategoryRequest } from '@/types/category';
+import { Button, Col, Form, Input, Row, Select } from 'antd';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { UpdateCategoryFormValue } from './type';
+
+const TextEditorComponent = dynamic(
+  () => import('../../../components/text-editor').then((mod) => mod.TextEditorComponent),
+  {
+    ssr: false,
+  },
+);
 
 export default function CategoryUpdateFormComponent() {
   const router = useRouter();

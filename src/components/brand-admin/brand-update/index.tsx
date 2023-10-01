@@ -1,16 +1,22 @@
 'use client';
-import { Button, Col, Form, Input, Row, Select } from 'antd';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { UpdateBrandFormValue } from './type';
-
-import TextEditorComponent from '@/components/text-editor';
 import { BrandIsDeletedEnum } from '@/enums/brand';
 import useGetDetailBrand from '@/hooks/brand/useGetDetailBrandt';
+import { useRouterBrandParams } from '@/hooks/brand/useRouterBrandt';
 import { updateBrand } from '@/services/brand/update';
 import { UpdateBrandRequest } from '@/types/brand';
+import { Button, Col, Form, Input, Row, Select } from 'antd';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useRouterBrandParams } from '@/hooks/brand/useRouterBrandt';
+import { UpdateBrandFormValue } from './type';
+
+const TextEditorComponent = dynamic(
+  () => import('../../../components/text-editor').then((mod) => mod.TextEditorComponent),
+  {
+    ssr: false,
+  },
+);
 
 export default function BrandUpdateFormComponent() {
   const router = useRouter();

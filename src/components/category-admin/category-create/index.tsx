@@ -1,16 +1,20 @@
 'use client';
+import { BrandIsDeletedEnum } from '@/enums/brand';
+import { createCategory } from '@/services/category/create';
+import { CreateCategoryRequest } from '@/types/category';
 import { Button, Col, Form, Input, Row, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { CreateCategoryFormValue } from './type';
-
-import TextEditorComponent from '@/components/text-editor';
-import { BrandIsDeletedEnum } from '@/enums/brand';
-import { createBrand } from '@/services/brand/create';
-import { CreateBrandRequest } from '@/types/brand';
 import { toast } from 'react-toastify';
-import { createCategory } from '@/services/category/create';
-import { CreateCategoryRequest } from '@/types/category';
+import { CreateCategoryFormValue } from './type';
+import dynamic from 'next/dynamic';
+
+const TextEditorComponent = dynamic(
+  () => import('../../../components/text-editor').then((mod) => mod.TextEditorComponent),
+  {
+    ssr: false,
+  },
+);
 
 export default function CategoryCreateFormComponent() {
   const router = useRouter();

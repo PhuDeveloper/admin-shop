@@ -11,9 +11,18 @@ import { useRouter } from 'next/navigation';
 import { ChangeEvent, useRef, useState } from 'react';
 import { CreateProductFormValue } from './type';
 
-import TextEditorComponent from '@/components/text-editor';
+// import { TextEditorComponent } from '@/components/text-editor';
+
+const TextEditorComponent = dynamic(
+  () => import('../../../components/text-editor').then((mod) => mod.TextEditorComponent),
+  {
+    ssr: false,
+  },
+);
+
 import { createProduct } from '@/services/product/create';
 import { toast } from 'react-toastify';
+import dynamic from 'next/dynamic';
 
 export default function ProductCreateFormComponent() {
   const router = useRouter();
