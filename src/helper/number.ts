@@ -23,4 +23,8 @@ function formatNumber(value: number | string, option: numbro.Format = {}) {
   });
 }
 
-export { convertVNDFormatToNumber, formatNumber };
+function calculateTheAmountAfterDiscount(priceOrg: number, discount: number): number {
+  return priceOrg - (priceOrg * discount) / 100;
+}
+
+export { convertVNDFormatToNumber, formatNumber, calculateTheAmountAfterDiscount };

@@ -49,7 +49,7 @@ export default function SignInComponent() {
         router.push('/admin/product');
       })
       .catch(() => {
-        toast.error(`Có lỗi xảy ra`, {
+        toast.error(`Đăng nhập thất bại`, {
           position: 'top-center',
           autoClose: 2000,
           hideProgressBar: true,

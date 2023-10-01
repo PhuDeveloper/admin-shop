@@ -1,5 +1,6 @@
 import { MenuType } from '@/types/menu-type';
 import { faProductHunt } from '@fortawesome/free-brands-svg-icons';
+import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { faBook } from '@fortawesome/free-solid-svg-icons/faBook';
 import { faDatabase } from '@fortawesome/free-solid-svg-icons/faDatabase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,6 +54,23 @@ export const Menus: MenuType[] = [
         key: '/admin/category/create',
         label: 'Thêm mới danh mục',
         title: '/admin/category/create',
+      },
+    ],
+  },
+  {
+    key: 'orders',
+    label: 'Quản lý đơn hàng',
+    icon: <FontAwesomeIcon icon={faClipboard} />,
+    children: [
+      {
+        key: '/admin/orders',
+        label: 'Danh sách đơn hàng',
+        title: '/admin/orders',
+      },
+      {
+        key: '/admin/orders/create',
+        label: 'Thêm mới đơn hàng',
+        title: '/admin/orders/create',
       },
     ],
   },

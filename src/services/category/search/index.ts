@@ -1,5 +1,4 @@
 import { getHttpClient } from '@/configs/httpClient';
-import { BrandListResponseData, GetListBrandRequest } from '@/types/brand';
 import { CategoryListResponseData, GetListCategoryRequest } from '@/types/category';
 
 const API_URL = '/category/list';
