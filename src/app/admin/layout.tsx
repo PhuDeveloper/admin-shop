@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import ProviderComponent from '@/configs/provider';
+import { RootStyleRegistry } from '@/configs/AntdRegistry';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,15 +23,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={inter.className}>
         <ProviderComponent>
-          <Layout>
-            <HeaderAdminComponent />
-            <Layout hasSider>
-              <AdminSideBarComponent />
+          <RootStyleRegistry>
+            <Layout>
+              <HeaderAdminComponent />
+              <Layout hasSider>
+                <AdminSideBarComponent />
 
-              <ContentComponent>{children}</ContentComponent>
+                <ContentComponent>{children}</ContentComponent>
+              </Layout>
+              <FooterComponent />
             </Layout>
-            <FooterComponent />
-          </Layout>
+          </RootStyleRegistry>
         </ProviderComponent>
       </body>
     </html>

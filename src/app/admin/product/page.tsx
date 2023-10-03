@@ -1,3 +1,5 @@
+'use client';
+
 import ProductFilterComponent from '@/components/product-admin/product-list/filter';
 import ProductTableComponent from '@/components/product-admin/product-list/table';
 

@@ -1,4 +1,4 @@
-import ContentComponent from '@/components/layout/Content';
+import ContentClientComponent from '@/components/layout/ContentClient';
 import FooterComponent from '@/components/layout/Footer';
 import HeaderClientComponent from '@/components/layout/HeaderClient';
 import ProviderComponent from '@/configs/provider';
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ProviderComponent>
           <Layout>
             <HeaderClientComponent />
-            <ContentComponent>{children}</ContentComponent>
+            <ContentClientComponent>{children}</ContentClientComponent>
             <FooterComponent />
           </Layout>
         </ProviderComponent>

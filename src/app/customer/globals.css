@@ -101,3 +101,19 @@ ul {
 li {
   margin: 0; /* Loại bỏ khoảng cách giữa các mục danh sách */
 }
+
+.images {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.images img {
+  flex-basis: 33%;
+  padding: 2px;
+}
+
+.container {
+  width: 80%; /* Đặt độ rộng container là 80% của chiều rộng của phần tử cha hoặc viewport (tùy vào ngữ cảnh) */
+  margin: 0 auto; /* Để căn giữa theo chiều ngang, margin-left và margin-right đều là "auto" */
+}
