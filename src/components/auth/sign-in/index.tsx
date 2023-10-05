@@ -1,15 +1,13 @@
 'use client';
 
-import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
-import { SignInFormValue } from './type';
 import { signInUser } from '@/services/auth/sign-in';
 import { SignInUserRequest } from '@/types/auth';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { Button, Card, Col, Form, Input, Row, Typography } from 'antd';
 import Cookies from 'js-cookie';
-import { useAppDispatch } from '@/store/hooks';
-import userSlice from '@/store/user/userSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import { SignInFormValue } from './type';
 
 const { Title, Text } = Typography;
 
@@ -59,8 +57,21 @@ export default function SignInComponent() {
           router.push('/customer');
         }
       })
-      .catch(() => {
-        toast.error(`Đăng nhập thất bại`, {
+      .catch((err: any) => {
+        if (!err.response) {
+          toast.error(`Server không hoạt động. Vui lòng thử lại sau!!!`, {
+            position: 'top-center',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
+          return;
+        }
+        toast.error(`${err.response?.data?.message}`, {
           position: 'top-center',
           autoClose: 2000,
           hideProgressBar: true,
@@ -78,11 +89,7 @@ export default function SignInComponent() {
     <Row>
       <Col xs={24} md={8}>
         <div style={{ paddingTop: '20px' }}>
-          <img
-            src="https://demo.dashboardmarket.com/strikingdash-vue/img/Illustration.54f5c202.png"
-            width="100%"
-            height="100%"
-          />
+          <img src="./authBackground.png" width="100%" height="100%" />
         </div>
       </Col>
       <Col xs={24} md={16}>
