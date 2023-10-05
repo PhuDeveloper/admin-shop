@@ -22,9 +22,9 @@ export default function useGetDetailUser() {
 
   const { data } = requestQuery;
 
-  const brandDetail = useMemo<UsersEntity | undefined>(() => {
+  const userDetail = useMemo<UsersEntity | undefined>(() => {
     return data?.payload;
   }, [data?.payload]);
 
-  return { brandDetail, requestQuery, setUserGetDetailParam };
+  return { userDetail, requestQuery, setUserGetDetailParam };
 }

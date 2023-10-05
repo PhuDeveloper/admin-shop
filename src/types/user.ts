@@ -32,7 +32,7 @@ export interface UserListResponse {
 }
 
 export interface DataUpdateUser {
-  name?: string;
+  fullName?: string;
   phone?: string;
   address?: string;
   role?: number;
