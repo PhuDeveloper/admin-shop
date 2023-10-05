@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/configs/response';
-import { OrderItemEntity } from './order_item';
+import { OrderItem, OrderItemEntity } from './order_item';
 import { UsersEntity } from './user';
 import { DeliveryAddressEntity } from './deivery-address';
 
@@ -24,6 +24,10 @@ export interface GetListOrderRequest {
   status?: number;
   page?: number;
   limit?: number;
+}
+
+export interface CreateOrderRequest {
+  orderItem: OrderItem[];
 }
 
 export interface OrderListResponseData extends ApiResponse<OrderListResponse> {}

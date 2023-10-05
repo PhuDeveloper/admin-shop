@@ -7,11 +7,16 @@ import { SignInUserRequest } from '@/types/auth';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { useAppDispatch } from '@/store/hooks';
+import userSlice from '@/store/user/userSlice';
+import Link from 'next/link';
 
 const { Title, Text } = Typography;
 
 export default function SignInComponent() {
   const [form] = Form.useForm<SignInFormValue>();
+
+  // const dispatch = useAppDispatch();
   const router = useRouter();
   const handleSubmitSignIn = (values: SignInFormValue) => {
     const request: SignInUserRequest = {
@@ -46,7 +51,13 @@ export default function SignInComponent() {
           theme: 'colored',
         });
         Cookies.set('token', res.payload?.accessToken);
-        router.push('/admin/product');
+        if (res.payload?.roleName === 'admin') {
+          // dispatch(userSlice())
+          router.push('/admin/product');
+        }
+        if (res.payload?.roleName === 'customer') {
+          router.push('/customer');
+        }
       })
       .catch(() => {
         toast.error(`Đăng nhập thất bại`, {
@@ -80,7 +91,7 @@ export default function SignInComponent() {
           style={{ minHeight: '86vh', display: 'flex', justifyContent: 'center' }}
         >
           <div style={{ width: '450px', padding: '80px 0' }}>
-            <Title level={4}>Sign in to Admin</Title>
+            <Title level={4}>Đăng nhập </Title>
 
             <Form
               name="filterProduct"
@@ -107,11 +118,11 @@ export default function SignInComponent() {
 
               <Form.Item>
                 <Button type="primary" size="large" htmlType="submit">
-                  Sign In
+                  Đăng nhập
                 </Button>
               </Form.Item>
               <Text style={{ color: '#5A5F7D', fontWeight: 500 }}>
-                Don’t have an account? Sign up now
+                Don’t have an account? <Link href="/auth/register">Sign up now</Link>
               </Text>
             </Form>
           </div>

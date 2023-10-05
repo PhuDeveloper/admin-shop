@@ -1,5 +1,6 @@
 'use client';
 
+import useGetListCart from '@/hooks/cart/useGetListCart';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { faShop } from '@fortawesome/free-solid-svg-icons/faShop';
@@ -10,6 +11,7 @@ import Link from 'next/link';
 const { Header } = Layout;
 
 export default function HeaderClientComponent() {
+  const { productList } = useGetListCart();
   const headerStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -61,16 +63,18 @@ export default function HeaderClientComponent() {
       </nav>
       <div style={{ display: 'flex' }}>
         <div style={{ marginRight: '15px' }}>
-          <Badge count={5} size="small">
-            <Button
-              type="link"
-              icon={
-                <FontAwesomeIcon
-                  icon={faCartShopping}
-                  style={{ color: '#272b41', fontSize: '16px' }}
-                />
-              }
-            />
+          <Badge count={productList?.length ?? 0} size="small">
+            <Link href="/customer/cart">
+              <Button
+                type="link"
+                icon={
+                  <FontAwesomeIcon
+                    icon={faCartShopping}
+                    style={{ color: '#272b41', fontSize: '16px' }}
+                  />
+                }
+              />
+            </Link>
           </Badge>
         </div>
         <div>

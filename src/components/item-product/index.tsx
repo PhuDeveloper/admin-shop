@@ -4,23 +4,48 @@ import { Button, Card, Tooltip } from 'antd';
 import StatusComponent from '../status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faStar } from '@fortawesome/free-solid-svg-icons';
+import { ItemProductProps } from './type';
+import { ProductEntity } from '@/types/product';
+import { addProductToCart } from '@/services/cart/add-product';
+import { toast } from 'react-toastify';
 
-export default function ItemProductComponent() {
-  //   const { product } = props;
+export default function ItemProductComponent(props: ItemProductProps) {
+  const { product } = props;
+
+  const handleAddProductToCart = (product: ProductEntity) => {
+    addProductToCart({ productId: [product.id] })
+      .then(() => {
+        toast.success(`Thêm giỏ hàng thành công`, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      })
+      .catch(() => {
+        toast.error(`Thêm giỏ hàng thất bại`, {
+          position: 'top-center',
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      });
+  };
 
   return (
     <Card
-      style={{ width: 280 }}
-      cover={
-        <img
-          alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-        />
-      }
+      style={{ width: 270, margin: '10px', flexGrow: 1 }}
+      cover={<img alt="example" src={product.imageUrl} height={270} width={'100%'} />}
     >
-      <h5>
-        Loa bluetooth mini MINPRO A005 không dây giá rẻ đèn led theo nhạc bluetooth 5.0 chính hãng
-      </h5>
+      <h5>{product.productName}</h5>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
@@ -58,6 +83,7 @@ export default function ItemProductComponent() {
             <Button
               type="link"
               icon={<FontAwesomeIcon icon={faCartPlus} style={{ fontSize: '20px' }} />}
+              onClick={() => handleAddProductToCart(product)}
             />
           </Tooltip>
         </div>

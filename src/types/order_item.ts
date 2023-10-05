@@ -8,3 +8,10 @@ export interface OrderItemEntity {
   product: ProductEntity;
   currentProductPrice: number;
 }
+
+export interface OrderItem {
+  quantity: number;
+  productId: number;
+  currentProductPrice: number;
+  orderId: number;
+}

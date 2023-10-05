@@ -1,21 +1,22 @@
 import ItemProductComponent from '@/components/item-product';
-import { ListProductAllProps } from './type';
+import { ListProductByBrandProps } from './type';
 
-export default function ListProductAll(props: ListProductAllProps) {
+export default function ListProductByBrandComponent(props: ListProductByBrandProps) {
   const { products } = props;
+
   return (
     <section className="container">
       <div
         style={{
           display: 'flex',
           width: '100%',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           flexWrap: 'wrap',
         }}
       >
-        {products.map((product) => (
-          <ItemProductComponent key={product.id} product={product} />
-        ))}
+        {products.map((item) => {
+          return <ItemProductComponent key={item.id} product={item} />;
+        })}
       </div>
     </section>
   );
