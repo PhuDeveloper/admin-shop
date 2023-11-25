@@ -3,15 +3,23 @@
 import { Menus } from '@/configs/menu';
 import { Layout, Menu } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
-
+import { useState } from 'react';
 const { Sider } = Layout;
 
 export default function AdminSideBarComponent() {
+  const [collapsed, setCollapsed] = useState(false);
+
   const router = useRouter();
   const pathname = usePathname();
 
   return (
-    <Sider width={250}>
+    <Sider
+      width={250}
+      collapsible
+      collapsed={collapsed}
+      theme="light"
+      onCollapse={(value) => setCollapsed(value)}
+    >
       <Menu
         theme="light"
         mode="inline"

@@ -98,8 +98,6 @@ export default function AdminUpdateUserComponent() {
           style={{ minHeight: '86vh', display: 'flex', justifyContent: 'center' }}
         >
           <div style={{ width: '450px', padding: '30px 0' }}>
-            <Title level={4}>Tạo tài khoản </Title>
-
             <Form
               name="filterProduct"
               layout="vertical"

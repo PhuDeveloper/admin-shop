@@ -1,5 +1,8 @@
 export interface OrdersFilterFormValue {
-  user: number;
+  user: {
+    value: number;
+    label: string;
+  };
   status: number;
   created: Date[];
 }

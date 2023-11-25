@@ -9,6 +9,8 @@ import theme from './theme';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 // set up theme, react-query, redux
 
@@ -25,7 +27,9 @@ export default function ProviderComponent({ children }: { children: React.ReactN
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ConfigProvider theme={theme}>{children}</ConfigProvider>
+      <Provider store={store}>
+        <ConfigProvider theme={theme}>{children}</ConfigProvider>
+      </Provider>
       <ToastContainer />
     </QueryClientProvider>
   );

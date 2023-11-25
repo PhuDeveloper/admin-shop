@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { InitUserState } from './type';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { InitUserState, PayloadUpdateRole } from './type';
 
 const initialState: InitUserState = {
   role: 2,
@@ -7,15 +7,15 @@ const initialState: InitUserState = {
 
 export const userSlice = createSlice({
   name: 'user',
-  // `createSlice` will infer the state type from the `initialState` argument
+
   initialState,
   reducers: {
-    // updateRoleUser: (state, actions: PayloadAction<>) => {
-    //   state.role = actions.payload;
-    // },
+    updateRoleUser: (state, actions: PayloadAction<PayloadUpdateRole>) => {
+      state.role = actions.payload.role;
+    },
   },
 });
 
-const { reducer: userReduce } = userSlice;
+export const { updateRoleUser } = userSlice.actions;
 
-export default userReduce;
+export default userSlice.reducer;

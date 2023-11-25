@@ -5,7 +5,6 @@ import { Avatar, Checkbox, List } from 'antd';
 
 export default function GetListProductByCartComponent() {
   const { productList } = useGetListCart();
-  const plainOptions = ['Apple', 'Pear', 'Orange'];
 
   return (
     <List

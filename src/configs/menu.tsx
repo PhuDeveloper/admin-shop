@@ -67,11 +67,11 @@ export const Menus: MenuType[] = [
         label: 'Danh sách đơn hàng',
         title: '/admin/orders',
       },
-      {
-        key: '/admin/orders/create',
-        label: 'Thêm mới đơn hàng',
-        title: '/admin/orders/create',
-      },
+      // {
+      //   key: '/admin/orders/create',
+      //   label: 'Thêm mới đơn hàng',
+      //   title: '/admin/orders/create',
+      // },
     ],
   },
   {

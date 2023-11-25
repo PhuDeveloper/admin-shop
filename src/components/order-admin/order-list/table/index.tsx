@@ -28,6 +28,12 @@ export default function OrdersTableComponent() {
       align: 'center',
     },
     {
+      title: 'Mã đơn hàng',
+      dataIndex: 'orderCode',
+      key: 'orderCode',
+      align: 'center',
+    },
+    {
       title: 'Thông tin giao hàng',
       dataIndex: 'customer',
       key: 'customer',
@@ -71,6 +77,7 @@ export default function OrdersTableComponent() {
     return {
       key: item.id.toString(),
       stt: <div>{numberStartToCount + index + 1}</div>,
+      orderCode: <div style={{ fontWeight: 550 }}>{item.orderCode}</div>,
       customer: (
         <div>
           <Text>

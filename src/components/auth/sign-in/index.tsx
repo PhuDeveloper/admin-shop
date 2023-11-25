@@ -8,6 +8,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { SignInFormValue } from './type';
+import { useAppDispatch } from '@/store/hooks';
+import { useReducer } from 'react';
+import { updateRoleUser } from '@/store/user/userSlice';
 
 const { Title, Text } = Typography;
 
@@ -50,7 +53,7 @@ export default function SignInComponent() {
         });
         Cookies.set('token', res.payload?.accessToken);
         if (res.payload?.roleName === 'admin') {
-          // dispatch(userSlice())
+          // dispatch(updateRoleUser({role:res.payload.}));
           router.push('/admin/product');
         }
         if (res.payload?.roleName === 'customer') {

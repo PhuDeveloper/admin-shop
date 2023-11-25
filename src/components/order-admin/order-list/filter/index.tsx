@@ -7,12 +7,25 @@ import { OrdersFilterFormValue } from './type';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { OrderStatusEnum } from '@/enums/order';
+import { GetListOrderRequest } from '@/types/order';
+import { appendQueryStringToUrl } from '@/helper/url';
+import useSearchUserInput from '@/hooks/user/useSearchUserInput';
 
 export default function OrdersFilterComponent() {
   const [form] = Form.useForm<OrdersFilterFormValue>();
   const router = useRouter();
+  const { userList } = useSearchUserInput();
 
-  const handleSubmitFilter = (value: OrdersFilterFormValue) => {};
+  const handleSubmitFilter = (values: OrdersFilterFormValue) => {
+    console.log('object', values?.user);
+    const params: GetListOrderRequest = {};
+
+    params.status = values?.status ? values.status : undefined;
+
+    params.userId = values?.user?.value ? values?.user.value : undefined;
+
+    router.push(appendQueryStringToUrl(window.location.href, params));
+  };
 
   return (
     <Card
@@ -40,7 +53,18 @@ export default function OrdersFilterComponent() {
                 </p>
               }
             >
-              <Input placeholder="Chọn khách hàng" />
+              <Select
+                showSearch
+                allowClear
+                labelInValue
+                options={userList.map((item) => {
+                  return {
+                    value: item.id,
+                    label: item.fullName,
+                  };
+                })}
+                placeholder="Chọn khách hàng"
+              />
             </Form.Item>
           </Col>
 
